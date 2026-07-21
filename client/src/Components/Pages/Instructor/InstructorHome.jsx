@@ -54,7 +54,7 @@ const InstructorHome = () => {
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        const res = await axios.get("/api/v1/courses/get-courses");
+        const res = await axios.get("/api/v1/courses/me");
         if (res.status === 200) setCourses(res.data.courses);
       } catch (err) {
         console.error(err);
