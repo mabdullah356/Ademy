@@ -7,12 +7,8 @@ const router = express.Router();
 
 router.post("/register", userRegisterMiddleware(), registerUser);
 router.post("/login", userLoginMiddleware(), LoginUser);
-router.post("/google-login", googleLogin);
-
+router.post("/google", googleLogin);
 router.post("/logout", logoutUser);
-
-router.get("/profile", isUserLogin, getProfile)
-
-
+router.get("/me", isUserLogin, getProfile);
 
 module.exports = router;
