@@ -136,7 +136,7 @@ function Header() {
                       try {
                         const token = localStorage.getItem("token");
                         if (token) {
-                          await axios.post("/api/v1/users/logout", null, {
+                          await axios.post("/api/v1/auth/logout", null, {
                             headers: { Authorization: `Bearer ${token}` }
                           });
                         }
