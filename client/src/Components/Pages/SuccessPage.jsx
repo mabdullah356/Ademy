@@ -14,7 +14,7 @@ const SuccessPage = () => {
       if (!sessionId) return;
 
       try {
-        await axios.get(`/api/v1/stripe/verify-session?sessionId=${sessionId}`);
+        await axios.post(`/api/v1/orders/verify-session?sessionId=${sessionId}`);
         setVerifying(false);
       } catch (err) {
         console.error("Payment verification failed:", err);

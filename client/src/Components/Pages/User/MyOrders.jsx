@@ -12,7 +12,7 @@ const MyOrders = () => {
     useEffect(() => {
         const fetchOrders = async () => {
             try {
-                const res = await axios.get('/api/v1/stripe/get-my-orders');
+                const res = await axios.get('/api/v1/orders/me');
                 setOrders(res.data.orders);
             } catch (error) {
                 console.error("Error fetching orders:", error);
