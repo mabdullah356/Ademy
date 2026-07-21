@@ -105,6 +105,11 @@ module.exports.verifySession = async (req, res) => {
       return res.status(400).json({ message: "Payment not completed" });
     }
 
+    // Verify the session belongs to the authenticated user
+    if (session.metadata.userId !== req.user._id.toString()) {
+      return res.status(403).json({ message: "Not authorized to verify this session" });
+    }
+
     // 2. Check if order already exists (to prevent double enrollment)
     const existingOrder = await Order.findOne({ paymentId: session.payment_intent });
     if (existingOrder) {
