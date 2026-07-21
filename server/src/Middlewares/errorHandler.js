@@ -1,5 +1,8 @@
 const errorHandler = (error,req,res,next)=>{
-    console.log(error);
+    console.error(error);
+    if (res.headersSent) {
+        return next(error);
+    }
     return res.status(500).json({message:"Internal server error"})
 }
 
