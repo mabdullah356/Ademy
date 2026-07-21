@@ -96,7 +96,7 @@ module.exports.getAllPublishedCourses = async (req, res) => {
 module.exports.getInstructorAllCoursesWithOrders = async (req, res) => {
   try {
     // Fetch all published courses for this instructor
-    const courses = await Course.find({ isPublished: true, instructorId: req.user._id })
+    const courses = await Course.find({ instructorId: req.user._id })
       .populate("instructorId", "name")
       .populate("reviews.userId", "name");
 
@@ -203,6 +203,12 @@ module.exports.addSessionInCourse = async (req, res) => {
       });
     }
 
+    if (course.instructorId.toString() !== req.user._id.toString()) {
+      return res.status(403).json({
+        message: "Not authorized to modify this course"
+      });
+    }
+
     const newSection = {
       title: title,
       lectureCount: 0,
@@ -246,6 +252,12 @@ module.exports.addLectureInSection = async (req, res) => {
     if (!course) {
       return res.status(404).json({
         message: "Course not found"
+      });
+    }
+
+    if (course.instructorId.toString() !== req.user._id.toString()) {
+      return res.status(403).json({
+        message: "Not authorized to modify this course"
       });
     }
 
@@ -343,13 +355,21 @@ module.exports.deleteCourse = async (req, res) => {
       });
     }
 
-    const course = await Course.findByIdAndDelete(id);
+    const course = await Course.findById(id);
 
     if (!course) {
       return res.status(404).json({
         message: "Course not found"
       });
     }
+
+    if (course.instructorId.toString() !== req.user._id.toString()) {
+      return res.status(403).json({
+        message: "Not authorized to delete this course"
+      });
+    }
+
+    await Course.findByIdAndDelete(id);
 
     return res.status(200).json({
       message: "Course deleted successfully"
@@ -379,6 +399,21 @@ exports.updateBasicInfo = async (req, res) => {
       isPublished
     } = req.body;
 
+    const course = await Course.findById(id);
+    if (!course) {
+      return res.status(404).json({
+        success: false,
+        message: "Course not found"
+      });
+    }
+
+    if (course.instructorId.toString() !== req.user._id.toString()) {
+      return res.status(403).json({
+        success: false,
+        message: "Not authorized to update this course"
+      });
+    }
+
     const updateData = {
       title,
       description,
@@ -407,13 +442,6 @@ exports.updateBasicInfo = async (req, res) => {
         runValidators: true
       }
     );
-
-    if (!updatedCourse) {
-      return res.status(404).json({
-        success: false,
-        message: "Course not found"
-      });
-    }
 
     res.status(200).json({
       success: true,
