@@ -38,7 +38,7 @@ const InstructorViewCourse = () => {
 
   const fetchCourse = async () => {
     try {
-      const res = await axios.get(`/api/v1/courses/course/${id}`);
+      const res = await axios.get(`/api/v1/courses/${id}`);
       setCourse(res.data.course);
     } catch (error) {
       console.log(error);
@@ -81,7 +81,7 @@ const InstructorViewCourse = () => {
 
   const handleDelete = async () => {
     try {
-      const res = await axios.delete(`/api/v1/courses/delete/${id}`);
+      const res = await axios.delete(`/api/v1/courses/${id}`);
       alert(res.data.message);
       window.location.href = "/instructor-home";
     } catch (error) {
@@ -435,7 +435,7 @@ const InstructorViewCourse = () => {
                               onClick={async () => {
                                 if (window.confirm("Are you sure you want to delete this review?")) {
                                   try {
-                                    await axios.delete(`/api/v1/reviews/delete/${review._id}`);
+                                    await axios.delete(`/api/v1/reviews/${review._id}`);
                                     fetchCourse();
                                     alert("Review deleted successfully");
                                   } catch (error) {
