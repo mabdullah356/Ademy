@@ -5,6 +5,7 @@ import logo from "../../../assets/images/logo.jpg"
 import { AuthContext } from "../../Contexts/userContext";
 import { FaUser } from 'react-icons/fa';
 import { IoCartOutline } from "react-icons/io5";
+import axios from 'axios';
 
 function Header() {
 
@@ -131,7 +132,17 @@ function Header() {
                   )}
 
                   <button
-                    onClick={() => {
+                    onClick={async () => {
+                      try {
+                        const token = localStorage.getItem("token");
+                        if (token) {
+                          await axios.post("/api/v1/users/logout", null, {
+                            headers: { Authorization: `Bearer ${token}` }
+                          });
+                        }
+                      } catch (e) {
+                        // Ignore errors - clear locally regardless
+                      }
                       localStorage.removeItem("token");
                       window.location.href = "/";
                     }}
