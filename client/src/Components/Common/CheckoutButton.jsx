@@ -20,7 +20,7 @@ const CheckoutButton = ({ cartIds, label = "Checkout", className = "", disabled 
 
         setLoading(true);
         try {
-            const res = await axios.post("/api/v1/stripe/checkout", {
+            const res = await axios.post("/api/v1/orders/checkout", {
                 cartIds: cartIds,
             });
 
