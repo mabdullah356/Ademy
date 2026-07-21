@@ -5,6 +5,6 @@ const { isUserLogin } = require("../Middlewares/auth.middleware");
 
 router.post("/checkout", express.json(), isUserLogin, createCheckoutSession);
 router.get("/get-my-orders", isUserLogin, getMyOrders);
-router.get("/verify-session", verifySession);
+router.get("/verify-session", isUserLogin, verifySession);
 
 module.exports = router;
