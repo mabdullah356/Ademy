@@ -308,21 +308,19 @@ module.exports.addLectureInSection = async (req, res) => {
   }
 };
 
-//user get all its cart courses detail using local stge
+//user get all its cart courses detail using local storage
 module.exports.getAllCartCourse = async (req, res) => {
   try {
-    const { carts } = req.query;
+    const { ids } = req.body;
 
-    if (!carts) {
+    if (!ids || !ids.length) {
       return res.status(400).json({
         message: "Cart IDs are required"
       });
     }
 
-    const allCart = carts.split(",");
-
     const allCarts = await Course.find({
-      _id: { $in: allCart }
+      _id: { $in: ids }
     });
 
     if (!allCarts.length) {
