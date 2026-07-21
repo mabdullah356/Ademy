@@ -11,9 +11,7 @@ const Cart = () => {
     try {
       if (!AdemyCarts || AdemyCarts.length === 0) return;
 
-      const res = await axios.get("/api/v1/courses/get-carts-courses", {
-        params: { carts: AdemyCarts.join(",") },
-      });
+      const res = await axios.post("/api/v1/courses/batch", { ids: AdemyCarts });
 
       setCourses(res.data.courses || []);
     } catch (error) {
