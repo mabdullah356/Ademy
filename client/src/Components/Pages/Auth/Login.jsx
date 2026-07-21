@@ -5,8 +5,8 @@ import { AuthContext } from '../../Contexts/userContext';
 
 const Login = () => {
   const { setUser } = useContext(AuthContext);
-  const [email, setEmail] = useState("abdullah@gmail.com");
-  const [password, setPassword] = useState("user1234");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
   const submitHandler = async (e) => {
