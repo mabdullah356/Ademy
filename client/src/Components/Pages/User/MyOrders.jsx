@@ -96,11 +96,11 @@ const MyOrders = () => {
                                             <span className="font-bold text-gray-900">${(order.amount / 100).toFixed(2)}</span>
                                         </td>
                                         <td className="px-6 py-4">
-                                            <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${order.paymentStatus === 'succeeded'
+                                            <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${order.status === 'paid'
                                                     ? 'bg-green-100 text-green-800'
                                                     : 'bg-yellow-100 text-yellow-800'
                                                 }`}>
-                                                {order.paymentStatus === 'succeeded' ? 'Paid' : 'Pending'}
+                                                {order.status === 'paid' ? 'Paid' : 'Pending'}
                                             </span>
                                         </td>
                                         <td className="px-6 py-4">

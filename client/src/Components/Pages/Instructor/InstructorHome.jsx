@@ -168,7 +168,7 @@ const InstructorHome = () => {
                 </div>
                 <div className="text-right ml-4">
                   <p className="font-bold text-gray-900 text-sm md:text-base">${enroll.amount}</p>
-                  <span className={`text-[10px] px-2 py-0.5 rounded-full font-medium ${enroll.status === 'succeeded' ? 'bg-green-100 text-green-700' : 'bg-yellow-100 text-yellow-700'}`}>
+                  <span className={`text-[10px] px-2 py-0.5 rounded-full font-medium ${enroll.status === 'paid' ? 'bg-green-100 text-green-700' : 'bg-yellow-100 text-yellow-700'}`}>
                     {enroll.status === 'paid' ? 'Paid' : 'Pending'}
                   </span>
                 </div>
