@@ -31,7 +31,7 @@ const Course = () => {
 
   const fetchCourse = async () => {
     try {
-      const res = await axios.get(`/api/v1/courses/course/${id}`);
+      const res = await axios.get(`/api/v1/courses/${id}`);
       setCourse(res.data.course);
     } catch (error) {
       console.error("Error fetching course:", error);
@@ -41,7 +41,7 @@ const Course = () => {
   const submitReview = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(`/api/v1/reviews/add`, { ...newReview, courseId: id });
+      await axios.post(`/api/v1/reviews`, { ...newReview, courseId: id });
       setNewReview({ rating: 5, comment: "" });
       fetchCourse();
       alert("Review added!");
@@ -52,7 +52,7 @@ const Course = () => {
 
   const deleteReview = async (reviewId) => {
     try {
-      await axios.delete(`/api/v1/reviews/delete/${reviewId}`);
+      await axios.delete(`/api/v1/reviews/${reviewId}`);
       fetchCourse();
       alert("Review deleted!");
     } catch (error) {
