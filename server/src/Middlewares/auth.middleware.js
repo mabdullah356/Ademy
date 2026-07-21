@@ -1,4 +1,3 @@
-const { decode } = require("punycode");
 const User = require("../Models/user.model");
 const jwt = require("jsonwebtoken");
 
@@ -12,17 +11,20 @@ const isUserLogin = async (req,res,next) => {
         return res.status(401).json({message:"Unauthorized"})
     };
 
-    const decoded = jwt.verify(token,process.env.JWT_SECRET);
+    let decoded;
+    try {
+        decoded = jwt.verify(token, process.env.JWT_SECRET);
+    } catch (err) {
+        return res.status(401).json({message:"Unauthorized"})
+    }
     
-    const user = await User.findById(decoded.id);
+    const user = await User.findById(decoded.id).select("-password");
     
-    if(!decoded || !user.name){
+    if(!user){
         return res.status(401).json({message:"Unauthorized"})
     };
 
-    const userObj = user.toObject();
-    delete userObj.password;    
-    req.user = userObj;
+    req.user = user;
     next();
 
 };
@@ -35,17 +37,20 @@ const isInstructorLogin = async (req,res,next) => {
         return res.status(401).json({message:"Unauthorized"})
     };
 
-    const decoded = jwt.verify(token,process.env.JWT_SECRET);
+    let decoded;
+    try {
+        decoded = jwt.verify(token, process.env.JWT_SECRET);
+    } catch (err) {
+        return res.status(401).json({message:"Unauthorized"})
+    }
     
-    const user = await User.findById(decoded.id);
+    const user = await User.findById(decoded.id).select("-password");
     
-    if(!decoded || !user.name || user.role!=="instructor"){
+    if(!user || user.role!=="instructor"){
         return res.status(401).json({message:"Unauthorized"})
     };
 
-    const userObj = user.toObject();
-    delete userObj.password;    
-    req.user = userObj;
+    req.user = user;
     next();
 
 };
