@@ -9,7 +9,7 @@ router.post("/register", userRegisterMiddleware(), registerUser);
 router.post("/login", userLoginMiddleware(), LoginUser);
 router.post("/google-login", googleLogin);
 
-router.get("/logout", logoutUser);
+router.post("/logout", logoutUser);
 
 router.get("/profile", isUserLogin, getProfile)
 
