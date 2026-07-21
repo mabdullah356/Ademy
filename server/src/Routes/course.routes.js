@@ -1,5 +1,5 @@
 const express = require("express");
-const { createCourse, getAllPublishedCourses, getCourseById, addSessionInCourse, addLectureInSection, getAllCartCourse, deleteCourse, updateBasicInfo, getInstructorAllCourses, getInstructorAllCoursesWithOrders, addReview, deleteReview } = require("../Controllers/course.controller");
+const { createCourse, getAllPublishedCourses, getCourseById, addSessionInCourse, addLectureInSection, getAllCartCourse, deleteCourse, updateBasicInfo, getInstructorAllCoursesWithOrders, addReview, deleteReview } = require("../Controllers/course.controller");
 const { isUserLogin, isInstructorLogin } = require("../Middlewares/auth.middleware");
 const upload = require("../Middlewares/multer.middleware");
 
@@ -8,7 +8,7 @@ const router = express.Router();
 router.post("/create-new", isInstructorLogin, upload.single("thumbnail"), createCourse);
 
 router.get("/get-all-courses", getAllPublishedCourses);
-router.get("/course/:id", isUserLogin, getCourseById);
+router.get("/course/:id", getCourseById);
 router.put("/add-section-course/:id", isInstructorLogin, addSessionInCourse);
 router.put("/add-lecture-section/:id/:sectionId", isInstructorLogin, addLectureInSection)
 
