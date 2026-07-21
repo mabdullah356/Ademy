@@ -4,8 +4,8 @@ const { isUserLogin } = require("../Middlewares/auth.middleware");
 
 const router = express.Router();
 
-router.post("/add", isUserLogin, addReview);
+router.post("/", isUserLogin, addReview);
 router.get("/course/:courseId", getCourseReviews);
-router.delete("/delete/:reviewId", isUserLogin, deleteReview);
+router.delete("/:reviewId", isUserLogin, deleteReview);
 
 module.exports = router;
