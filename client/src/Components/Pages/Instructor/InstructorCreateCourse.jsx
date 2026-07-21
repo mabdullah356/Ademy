@@ -10,17 +10,17 @@ import { useNavigate } from 'react-router-dom';
 const InstructorCreateCourse = () => {
   const navigate = useNavigate();
   const [courseData, setCourseData] = useState({
-    title: 'test course',
-    description: 'test descriptions',
-    thumbnail: 'https://cdn.pixabay.com/photo/2025/12/31/21/24/21-24-02-186_1280.jpg',
+    title: '',
+    description: '',
+    thumbnail: '',
     level: 'beginner',
     language: 'English',
-    price: 1500,
-    discount: 12,
-    requirements: ['avs','12i3ji'],
-    keywords: ['test','test2'],
-    topics: ['abc','xyz'],
-    isPublished: true,
+    price: 0,
+    discount: 0,
+    requirements: [],
+    keywords: [],
+    topics: [],
+    isPublished: false,
     content: {
       totalDuration: 0,
       sections: [{

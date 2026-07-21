@@ -18,7 +18,7 @@ const CancelPage = () => {
           Back to Cart
         </Link>
         <Link
-          to="/courses"
+          to="/"
           className="px-6 py-3 bg-gray-600 text-white rounded hover:bg-gray-700 transition"
         >
           Browse Courses
