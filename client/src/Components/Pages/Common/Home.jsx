@@ -113,7 +113,7 @@ function Courses() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get("/api/v1/courses/get-all-courses").then((res) => {
+    axios.get("/api/v1/courses").then((res) => {
       setCourses(res.data.courses);
     });
   }, []);
