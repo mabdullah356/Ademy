@@ -56,7 +56,7 @@ const InstructorEditCourse = () => {
 
   const fetchCourse = async () => {
     try {
-      const res = await axios.get(`/api/v1/courses/course/${id}`);
+      const res = await axios.get(`/api/v1/courses/${id}`);
       setCourse(res.data.course);
       setBasicInfo({
         title: res.data.course.title,
@@ -149,7 +149,7 @@ const InstructorEditCourse = () => {
         formData.append('thumbnail', thumbnailFile);
       }
 
-      await axios.put(`/api/v1/courses/update/${id}`, formData, {
+      await axios.patch(`/api/v1/courses/${id}`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
@@ -168,7 +168,7 @@ const InstructorEditCourse = () => {
       return;
     }
     try {
-      await axios.put(`/api/v1/courses/add-section-course/${id}`, {
+      await axios.post(`/api/v1/courses/${id}/sections`, {
         title: newSection.title
       });
       alert('Section added successfully!');
@@ -186,7 +186,7 @@ const InstructorEditCourse = () => {
       return;
     }
     try {
-      await axios.put(`/api/v1/courses/add-lecture-section/${id}/${sectionId}`, newLecture);
+      await axios.post(`/api/v1/courses/${id}/sections/${sectionId}/lectures`, newLecture);
       alert('Lecture added successfully!');
       setNewLecture({
         title: '',
