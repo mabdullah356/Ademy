@@ -5,25 +5,20 @@ const upload = require("../Middlewares/multer.middleware");
 
 const router = express.Router();
 
-router.post("/create-new", isInstructorLogin, upload.single("thumbnail"), createCourse);
+router.get("/", getAllPublishedCourses);
+router.post("/", isInstructorLogin, upload.single("thumbnail"), createCourse);
 
-router.get("/get-all-courses", getAllPublishedCourses);
-router.get("/course/:id", getCourseById);
-router.put("/add-section-course/:id", isInstructorLogin, addSessionInCourse);
-router.put("/add-lecture-section/:id/:sectionId", isInstructorLogin, addLectureInSection)
+router.get("/me", isInstructorLogin, getInstructorAllCoursesWithOrders);
+router.post("/batch", isUserLogin, getAllCartCourse);
 
-//instructor get all its courses
-router.get("/get-courses", isInstructorLogin, getInstructorAllCoursesWithOrders)
-// get all cart courses
-router.get("/get-carts-courses", isUserLogin, getAllCartCourse);
+router.get("/:id", getCourseById);
+router.patch("/:id", isInstructorLogin, upload.single("thumbnail"), updateBasicInfo);
+router.delete("/:id", isInstructorLogin, deleteCourse);
 
-// delete a course
-router.delete("/delete/:id", isInstructorLogin, deleteCourse);
-//edit basic info of course--
-router.put('/update/:id', isInstructorLogin, upload.single("thumbnail"), updateBasicInfo);
+router.post("/:id/sections", isInstructorLogin, addSessionInCourse);
+router.post("/:id/sections/:sectionId/lectures", isInstructorLogin, addLectureInSection);
 
-// Review routes
-router.post("/:id/review", isUserLogin, addReview);
-router.delete("/:id/review/:reviewId", isUserLogin, deleteReview);
+router.post("/:id/reviews", isUserLogin, addReview);
+router.delete("/:id/reviews/:reviewId", isUserLogin, deleteReview);
 
 module.exports = router;
