@@ -92,7 +92,7 @@ const InstructorCreateCourse = () => {
   const handleSubmit = async(e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("/api/v1/courses/create-new", courseData);
+      const res = await axios.post("/api/v1/courses", courseData);
       alert(res.data.message);
       navigate("/instructor-home");
     } catch (error) {
