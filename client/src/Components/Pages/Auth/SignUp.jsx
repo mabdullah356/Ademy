@@ -23,7 +23,7 @@ const SignUp = () => {
       role: isInstructor ? "instructor" : "user"
     };
     try {
-      const res = await axios.post("/api/v1/users/register", data);
+      const res = await axios.post("/api/v1/auth/register", data);
       alert(res.data.message);
       localStorage.setItem("token", res.data.token);
       setUser(res.data.user);
@@ -40,7 +40,7 @@ const SignUp = () => {
 
   const handleGoogleSuccess = async (credentialResponse) => {
     try {
-      const res = await axios.post("/api/v1/users/google-login", {
+      const res = await axios.post("/api/v1/auth/google", {
         credential: credentialResponse.credential,
         role: isInstructor ? "instructor" : "user"
       });
