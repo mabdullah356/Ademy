@@ -1,17 +1,17 @@
 import axios from "axios";
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext, useEffect, useState, useCallback } from "react";
 
 export const AuthContext = createContext(null);
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true); // track auth check
-  const token = localStorage.getItem("token");
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchProfile = async () => {
+      const token = localStorage.getItem("token");
+
       if (!token) {
-        // Only redirect if not already on login page
         if (window.location.pathname !== "/") {
           window.location.href = "/";
         }
@@ -43,7 +43,13 @@ const AuthProvider = ({ children }) => {
     };
 
     fetchProfile();
-  }, [token]);
+  }, []);
+
+  // Re-fetch profile when user state changes (e.g., after login sets user)
+  useEffect(() => {
+    if (!user) return;
+    // User was already set (e.g., from login response), no need to refetch
+  }, [user]);
 
   // Prevent rendering children until auth check is complete
   if (loading) return null;
